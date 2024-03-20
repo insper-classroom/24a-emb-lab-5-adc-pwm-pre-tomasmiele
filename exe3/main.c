@@ -46,7 +46,7 @@ void process_task(void *p) {
                     soma += lista[i];
                 }
                 int media = soma / 5;
-                // Aqui você deveria fazer algo com a média, como enviá-la para outra fila ou processá-la
+                printf("%d\n", media);
             }
 
             
