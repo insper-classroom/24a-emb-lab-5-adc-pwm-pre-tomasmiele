@@ -25,22 +25,22 @@ void data_task(void *p) {
 
 void process_task(void *p) {
     int data = 0;
-    int lista[5]; 
+    int lista[5] = {-1, -1, -1, -1, -1};;
     int indice = 4;
 
     while (true) {
         if (xQueueReceive(xQueueData, &data, 100)) {
             // implementar filtro aqui!
 
-            if (lista[4] == NULL) {
+            if (lista[4] == -1) {
                 lista[4] = data;
-            } else if (lista[3] == NULL) { 
+            } else if (lista[3] == -1) { 
                 lista[3] = data;
-            } else if (lista[2] == NULL) { 
+            } else if (lista[2] == -1) { 
                 lista[2] = data;
-            } else if (lista[1] == NULL) { 
+            } else if (lista[1] == -1) { 
                 lista[1] = data;
-            } else if (lista[0] == NULL) { 
+            } else if (lista[0] == -1) { 
                 lista[0] = data;
             } else {
                 if (indice == 0) {
@@ -53,7 +53,7 @@ void process_task(void *p) {
             // deixar esse delay!
             vTaskDelay(pdMS_TO_TICKS(50));
         }
-        if (lista[0] != NULL) {
+        if (lista[0] != -1) {
             int soma = 0;
             for (int i = 0; i < 5; i++) {
                 soma += lista[i];
