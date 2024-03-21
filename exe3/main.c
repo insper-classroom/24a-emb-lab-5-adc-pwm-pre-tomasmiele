@@ -23,8 +23,6 @@ void data_task(void *p) {
     }
 }
 
-int window_size = 5;
-
 void process_task(void *p) {
     int window[] = {0};
     int data = 0;
@@ -38,9 +36,9 @@ void process_task(void *p) {
             sum -= window[index];
             window[index] = data;
             sum += data;
-            int mouving_avarege = sum/window_size;
+            int mouving_avarege = sum/5;
             printf("%d\n", mouving_avarege);
-            index = (index + 1) % window_size;
+            index = (index + 1) % 5;
             
             // deixar esse delay!
             vTaskDelay(pdMS_TO_TICKS(50));
