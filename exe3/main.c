@@ -27,26 +27,29 @@ void process_task(void *p) {
     int data = 0;
     int lista[5] = {0};
     int count = 0;
-    int soma = 0;
 
     while (true) {
         if (xQueueReceive(xQueueData, &data, 100)) {
             // implementar filtro aqui!
 
-            // Atualiza a soma subtraindo o valor mais antigo e adicionando o novo valor.
-            soma = soma - lista[count % 5] + data;
+            for (int i = 0; i < 4; i++) {
+                lista[i] = lista[i + 1];
+            }
+            lista[4] = data; // Coloca o novo valor na última posição da lista
 
-            // Insere o novo dado na lista, na posição correta.
-            lista[count % 5] = data;
-
-            // Só calcula a média se tiver pelo menos 5 elementos.
-            if (count >= 4) {
-                int media = soma / 5;
-                printf("%d\n", media); // Saída para a UART
+            if (count < 5) {
+                count++; // Incrementa o contador até que todos os 5 elementos estejam preenchidos
             }
 
-            // Incrementa o contador de elementos.
-            count++;
+            // Só calcula a média quando tiver 5 elementos
+            if (count == 5) {
+                int soma = 0;
+                for (int i = 0; i < 5; i++) {
+                    soma += lista[i];
+                }
+                int media = soma / 5;
+                printf("%d\n", media); // Imprime a média na UART
+            }
             
             // deixar esse delay!
             vTaskDelay(pdMS_TO_TICKS(50));
