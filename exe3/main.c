@@ -24,7 +24,7 @@ void data_task(void *p) {
 }
 
 void process_task(void *p) {
-    int window[] = {0};
+    int window[5] = {0};
     int data = 0;
     int index = 0;
     int sum = 0;
@@ -36,8 +36,10 @@ void process_task(void *p) {
             sum -= window[index];
             window[index] = data;
             sum += data;
+
             int mouving_avarege = sum/5;
             printf("%d\n", mouving_avarege);
+            
             index = (index + 1) % 5;
             
             // deixar esse delay!
